@@ -23,10 +23,11 @@ sample-electron/
 │   └── main.ts          # Electronメインプロセス（TypeScript）
 ├── src/
 │   ├── App.tsx          # Reactメインコンポーネント（TypeScript）
-│   └── main.tsx         # Reactエントリーポイント（TypeScript）
+│   ├── main.tsx         # Reactエントリーポイント（TypeScript）
+│   └── index.html       # HTMLテンプレート
+├── public/              # 静的アセット（アイコン、画像など）
 ├── dist/                # ビルド成果物（自動生成）
 ├── release/             # パッケージ化されたアプリ（自動生成）
-├── index.html           # HTMLテンプレート
 ├── vite.config.ts       # Vite設定ファイル（TypeScript）
 ├── tsconfig.json        # TypeScript設定ファイル
 └── package.json         # プロジェクト設定
@@ -128,6 +129,17 @@ TypeScriptによる型安全な開発が可能です：
 - **厳格な型チェック**: `tsconfig.json` で `strict: true` を設定
 - **型定義**: React、Electron、Node.jsの型定義を自動で提供
 - **開発体験**: VSCodeなどのエディタで自動補完とエラー検出が可能
+
+### ディレクトリ構造
+
+最小限かつ整理されたディレクトリ構造を採用：
+
+- **`src/`**: すべてのソースコード（React + HTML）を一箇所に集約
+- **`public/`**: 静的アセット（アイコン、画像など）を配置
+- **`electron/`**: Electronメインプロセスのコードを分離
+- **設定ファイル**: プロジェクトルートに配置（見通しが良い）
+
+この構造により、ソースコードと設定ファイルが明確に分離され、プロジェクトが成長しても管理しやすくなります。
 
 ### ファイルパスの解決
 
