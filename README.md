@@ -1,79 +1,145 @@
-# sample-electron
+# Sample Electron App
 
-Simple Electron app with React and Vite
+必要最小限な React + Electron 構成の検証サンプルアプリケーション
 
-## Tech Stack
+## 概要
 
-- **Electron** - Desktop application framework
-- **React** - UI library
-- **Vite** - Build tool and development server
+このプロジェクトは、Electron、React、Viteを使用したシンプルなデスクトップアプリケーションです。
+最小限の構成で、Macデスクトップアプリとして動作します。
 
-## Prerequisites
+## 技術スタック
 
-- Node.js (v18 or higher)
-- npm
+- **Electron** ^28.0.0 - デスクトップアプリケーションフレームワーク
+- **React** ^18.2.0 - UIライブラリ
+- **Vite** ^5.0.0 - 高速ビルドツール
+- **Node.js** - 開発環境（推奨: v18以上）
 
-## Installation
+## ディレクトリ構成
+
+```
+sample-electron/
+├── electron/
+│   └── main.js          # Electronメインプロセス
+├── src/
+│   ├── App.jsx          # Reactメインコンポーネント
+│   └── main.jsx         # Reactエントリーポイント
+├── dist/                # ビルド成果物（自動生成）
+├── release/             # パッケージ化されたアプリ（自動生成）
+├── index.html           # HTMLテンプレート
+├── vite.config.js       # Vite設定ファイル
+└── package.json         # プロジェクト設定
+```
+
+## セットアップ
+
+### 1. 依存関係のインストール
 
 ```bash
 npm install
 ```
 
-## Development
-
-Run the app in development mode:
+### 2. 開発モードで起動
 
 ```bash
 npm run electron:dev
 ```
 
-This will start the Vite dev server and launch the Electron app.
+このコマンドは以下を自動で実行します：
+- Vite開発サーバーを起動（http://localhost:5173）
+- Electronウィンドウでアプリを表示
+- ホットリロード有効
 
-## Build
+## ビルド
 
-Build the React app:
-
-```bash
-npm run build
-```
-
-## Distribution
-
-Create a distributable package for macOS:
+### Macアプリケーションとしてビルド
 
 ```bash
 npm run dist
 ```
 
-Or build without packaging:
+以下のファイルが `release/` ディレクトリに生成されます：
+
+- **Sample Electron App.app** - Macアプリケーション（`release/mac-arm64/`内）
+- **Sample Electron App-1.0.0-arm64.dmg** - インストーラー（DMG形式）
+- **Sample Electron App-1.0.0-arm64-mac.zip** - 配布用ZIP
+
+### ビルド成果物の使用方法
+
+#### 方法1: .appファイルを直接起動
+```bash
+open "release/mac-arm64/Sample Electron App.app"
+```
+
+#### 方法2: Applicationsフォルダにインストール
+Finderで `release/mac-arm64/Sample Electron App.app` を開き、Applicationsフォルダにドラッグ&ドロップ
+
+#### 方法3: DMGファイルを使用
+`Sample Electron App-1.0.0-arm64.dmg` をダブルクリックして、表示されたウィンドウでアプリをApplicationsフォルダにドラッグ
+
+## スクリプト
+
+| コマンド | 説明 |
+|---------|------|
+| `npm run dev` | Vite開発サーバーのみ起動 |
+| `npm run build` | Viteでプロジェクトをビルド |
+| `npm run electron:dev` | 開発モードでElectronアプリを起動 |
+| `npm run dist` | Macアプリをビルド（DMG + ZIP） |
+| `npm run dist:dir` | Macアプリをビルド（.appのみ） |
+
+## アプリケーションの機能
+
+- シンプルなカウンターボタン
+- クリックで数値が増加
+- React Hooksを使用（useState）
+
+## トラブルシューティング
+
+### 初回起動時に「開発元が未確認」の警告が表示される
+
+これはコード署名がされていないためです。以下の手順で起動できます：
+
+1. アプリを右クリック
+2. 「開く」を選択
+3. 確認ダイアログで「開く」をクリック
+
+### アプリが起動しない / 画面が真っ白
+
+1. 開発者ツールでエラーを確認
+2. `npm run dist` で再ビルド
+3. Node.jsとnpmのバージョンを確認
+
+### ビルドエラーが発生する
 
 ```bash
-npm run dist:dir
+# node_modulesとビルド成果物を削除して再インストール
+rm -rf node_modules dist release
+npm install
+npm run dist
 ```
 
-The output will be in the `release` directory.
+## 開発のポイント
 
-## Project Structure
+### ファイルパスの解決
 
-```
-sample-electron/
-├── electron/       # Electron main process
-├── src/           # React application source
-├── dist/          # Build output
-├── release/       # Distribution packages
-└── index.html     # Entry HTML file
+パッケージ化されたアプリでは、`app.getAppPath()` を使用してアプリケーションのルートパスを取得します：
+
+```javascript
+const indexPath = path.join(app.getAppPath(), 'dist', 'index.html')
 ```
 
-## Scripts
+### asar無効化
 
-- `npm run dev` - Start Vite dev server
-- `npm run build` - Build React app for production
-- `npm run preview` - Preview production build
-- `npm run electron` - Run Electron app
-- `npm run electron:dev` - Run app in development mode
-- `npm run dist` - Create macOS distribution package
-- `npm run dist:dir` - Build without packaging
+現在の設定では `asar: false` にしており、ファイルを圧縮せずにそのまま配置しています。
+これにより、ファイルパスの問題を回避できます。
 
-## License
+### 開発環境と本番環境の切り替え
+
+`app.isPackaged` を使用して、開発モードとビルドされたアプリを自動判定します。
+
+## ライセンス
 
 ISC
+
+## 作成者
+
+検証サンプルプロジェクト

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 
+// メインアプリケーションコンポーネント
 function App() {
+  // カウンターの状態を管理（React Hooks使用）
   const [count, setCount] = useState(0)
 
   return (
@@ -8,6 +10,7 @@ function App() {
       <h1>Electron + React + Vite</h1>
       <p>シンプルなElectronアプリケーション</p>
       <div style={{ marginTop: '30px' }}>
+        {/* クリックするとカウントが増えるボタン */}
         <button
           onClick={() => setCount(count + 1)}
           style={{
