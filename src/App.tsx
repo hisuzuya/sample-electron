@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
 // メインアプリケーションコンポーネント
-function App() {
+function App(): JSX.Element {
   // カウンターの状態を管理（React Hooks使用）
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState<number>(0)
 
   return (
     <div style={{ padding: '40px', textAlign: 'center', fontFamily: 'sans-serif' }}>
-      <h1>Electron + React + Vite</h1>
+      <h1>Electron + React + Vite + TypeScript</h1>
       <p>シンプルなElectronアプリケーション</p>
       <div style={{ marginTop: '30px' }}>
         {/* クリックするとカウントが増えるボタン */}

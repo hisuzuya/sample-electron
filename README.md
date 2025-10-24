@@ -1,16 +1,17 @@
 # Sample Electron App
 
-必要最小限な React + Electron 構成の検証サンプルアプリケーション
+必要最小限な React + Electron + TypeScript 構成の検証サンプルアプリケーション
 
 ## 概要
 
-このプロジェクトは、Electron、React、Viteを使用したシンプルなデスクトップアプリケーションです。
+このプロジェクトは、Electron、React、Vite、TypeScriptを使用したシンプルなデスクトップアプリケーションです。
 最小限の構成で、Macデスクトップアプリとして動作します。
 
 ## 技術スタック
 
 - **Electron** ^28.0.0 - デスクトップアプリケーションフレームワーク
 - **React** ^18.2.0 - UIライブラリ
+- **TypeScript** ^5.3.0 - 型安全な開発環境
 - **Vite** ^5.0.0 - 高速ビルドツール
 - **Node.js** - 開発環境（推奨: v18以上）
 
@@ -19,14 +20,15 @@
 ```
 sample-electron/
 ├── electron/
-│   └── main.js          # Electronメインプロセス
+│   └── main.ts          # Electronメインプロセス（TypeScript）
 ├── src/
-│   ├── App.jsx          # Reactメインコンポーネント
-│   └── main.jsx         # Reactエントリーポイント
+│   ├── App.tsx          # Reactメインコンポーネント（TypeScript）
+│   └── main.tsx         # Reactエントリーポイント（TypeScript）
 ├── dist/                # ビルド成果物（自動生成）
 ├── release/             # パッケージ化されたアプリ（自動生成）
 ├── index.html           # HTMLテンプレート
-├── vite.config.js       # Vite設定ファイル
+├── vite.config.ts       # Vite設定ファイル（TypeScript）
+├── tsconfig.json        # TypeScript設定ファイル
 └── package.json         # プロジェクト設定
 ```
 
@@ -119,11 +121,19 @@ npm run dist
 
 ## 開発のポイント
 
+### TypeScript
+
+TypeScriptによる型安全な開発が可能です：
+
+- **厳格な型チェック**: `tsconfig.json` で `strict: true` を設定
+- **型定義**: React、Electron、Node.jsの型定義を自動で提供
+- **開発体験**: VSCodeなどのエディタで自動補完とエラー検出が可能
+
 ### ファイルパスの解決
 
 パッケージ化されたアプリでは、`app.getAppPath()` を使用してアプリケーションのルートパスを取得します：
 
-```javascript
+```typescript
 const indexPath = path.join(app.getAppPath(), 'dist', 'index.html')
 ```
 

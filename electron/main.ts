@@ -6,10 +6,10 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-let mainWindow
+let mainWindow: BrowserWindow | null
 
 // ウィンドウを作成する関数
-function createWindow() {
+function createWindow(): void {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,

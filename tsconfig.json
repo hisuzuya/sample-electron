@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    // 基本設定
+    "target": "ES2020",                          // 出力するJavaScriptのバージョン
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],    // 使用するライブラリ
+    "module": "ESNext",                          // モジュールシステム
+    "moduleResolution": "bundler",               // モジュール解決方法
+
+    // JSX設定
+    "jsx": "react-jsx",                          // JSXのコンパイル方法
+
+    // 型チェック設定
+    "strict": true,                              // 厳格な型チェックを有効化
+    "noUnusedLocals": true,                      // 未使用のローカル変数をエラーに
+    "noUnusedParameters": true,                  // 未使用のパラメータをエラーに
+    "noFallthroughCasesInSwitch": true,         // switch文のフォールスルーをエラーに
+    "skipLibCheck": true,                        // ライブラリの型チェックをスキップ
+
+    // モジュール解決
+    "resolveJsonModule": true,                   // JSONファイルのインポートを許可
+    "allowSyntheticDefaultImports": true,        // デフォルトエクスポートがないモジュールからのインポートを許可
+    "esModuleInterop": true,                     // CommonJSとESモジュールの相互運用性
+
+    // 出力設定
+    "allowImportingTsExtensions": true,          // .ts拡張子付きインポートを許可
+    "isolatedModules": true,                     // 各ファイルを個別にトランスパイル
+    "noEmit": true,                              // JavaScriptファイルを出力しない（Viteが処理）
+
+    // パス設定
+    "baseUrl": ".",                              // ベースURL
+    "paths": {
+      "@/*": ["./src/*"]                         // パスエイリアス設定
+    }
+  },
+  "include": [
+    "src/**/*",                                  // srcディレクトリ内のすべてのファイル
+    "electron/**/*"                              // electronディレクトリ内のすべてのファイル
+  ],
+  "exclude": [
+    "node_modules",                              // node_modulesを除外
+    "dist",                                      // distディレクトリを除外
+    "release"                                    // releaseディレクトリを除外
+  ]
+}
