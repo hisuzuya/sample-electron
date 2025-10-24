@@ -22,15 +22,14 @@
     "electron-builder": "^24.9.1",
     "vite": "^5.0.0",
     "concurrently": "^8.2.2",
-    "wait-on": "^7.2.0"
-  },
-  "dependencies": {
+    "wait-on": "^7.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "build": {
     "appId": "com.sample.electron",
     "productName": "Sample Electron App",
+    "asar": false,
     "mac": {
       "category": "public.app-category.utilities",
       "target": ["dmg", "zip"]

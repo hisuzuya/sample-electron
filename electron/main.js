@@ -23,9 +23,11 @@ function createWindow() {
     mainWindow.webContents.openDevTools()
   } else {
     // 本番環境ではビルドされたファイルを使用
-    // パッケージ化されたアプリでも __dirname ベースでパスを解決
-    const indexPath = path.join(__dirname, '../dist/index.html')
+    // app.getAppPath()を使用してアプリケーションのルートパスを取得
+    const indexPath = path.join(app.getAppPath(), 'dist', 'index.html')
     mainWindow.loadFile(indexPath)
+    // デバッグ用に開発者ツールを開く
+    mainWindow.webContents.openDevTools()
   }
 
   mainWindow.on('closed', () => {
